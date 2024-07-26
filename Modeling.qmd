@@ -1,0 +1,20 @@
+---
+title: "ST 558 Project 3: Modeling"
+author: "Lamia Benyamine"
+format: html
+editor: visual
+---
+
+# Introduction
+
+# Models
+
+## Split the Data
+
+## Logistical Regression Models
+
+## Classification Tree
+
+## Random Forest
+
+## Compare models

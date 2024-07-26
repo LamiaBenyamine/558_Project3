@@ -1,5 +1,5 @@
 ---
-title: "Project 3: EDA"
+title: "ST 558 Project 3: EDA"
 author: "Lamia Benyamine"
 format: html
 editor: visual
@@ -17,22 +17,115 @@ library(readr)
 library(tidyr)
 library(dplyr)
 library(tidyverse)
+library(ggplot2)
 ```
 
 
 # Data
+
 Read in the diabetes data using a relative path, and convert 
 
 ```{r}
-diabetes_tb <- read_csv("data/diabetes_binary_health_indicators_BRFSS2015.csv") |>
-                select(-c(MentHlth, DiffWalk, NoDocbcCost, Education)) |>
-                mutate(across(-c(BMI, GenHlth, PhysHlth, Sex, Age, Income), \(x) factor(x, levels = c("0","1"), labels = c("No", "Yes"))),
+diabetes_tb <- read_csv("data/diabetes_binary_health_indicators_BRFSS2015.csv", show_col_types = FALSE) |>
+                select(-c(CholCheck, MentHlth, DiffWalk, NoDocbcCost, Education)) |>
+                mutate(across(-c(Diabetes_binary, BMI, GenHlth, PhysHlth, Sex, Age, Income), \(x) factor(x, levels = c("0","1"), labels = c("No", "Yes"))),
+                       Diabetes = factor(Diabetes_binary, levels = c(0:1), labels = c("no diabetes", "diabetes")),
                        GenHlth = factor(GenHlth, levels = c(1:5), labels = c("excellent", "very good", "good", "fair", "poor")),
                        BadPhysHlthDays = as.factor(PhysHlth), 
-                       Sex = factor(Sex, levels = c("0", "1"), labels = c("Female", "Male")))
-
-
-str(diabetes_tb)
-class(diabetes_tb)
+                       Sex = factor(Sex, levels = c("0", "1"), labels = c("Female", "Male")),
+                       Age = factor(Age, levels = c(1:13), labels=c("18-24", "25-34", "25-34", "35-44", "35-44", "45-54", "45-54", "55-64", "55-64", "65-74", "65-74", "75+", "75+")),
+                       Income = factor(Income, levels = c(1:8), labels = c("less than $10k","less than $35k", "less than $35k", "less than $35k", "less than $35k", "less than $75k", "less than $75k", "more than $75k" ))) |>
+                select(-Diabetes_binary, -PhysHlth)
 ```
 
+## Summarize
+Understand the data by checking the structure, any missing values, and the summary with respect to the relationships of variables to Diabetes. 
+
+```{r, message = FALSE, warning = FALSE}
+#display a few rows of the data, show the column structures and the class
+head(diabetes_tb)
+str(diabetes_tb)
+class(diabetes_tb)
+
+#determine if there is any missing data
+colSums(is.na(diabetes_tb))
+
+#print a table of proportions of each categorical variable with the diabetes response variable
+collapse::descr(diabetes_tb, ~ Diabetes, cols = is.factor, compact = TRUE)
+
+#View basic contingency summary tables
+##view the count of Diabetes by General Health and Sex
+table(diabetes_tb$GenHlth, diabetes_tb$Diabetes, diabetes_tb$Sex, dnn=c("General Health", "Diabetes", "Sex"))
+
+round(proportions(table(diabetes_tb$Age, diabetes_tb$Diabetes))*100,3)
+
+##view the mean BMI across Age groups by Sex and Diabetes
+diabetes_tb |>
+  group_by(Diabetes, Sex, Age) |>
+  summarize(meanBMI = mean(BMI), .groups = 'drop') |>
+  pivot_wider(names_from = Age, values_from = meanBMI)
+```
+
+## Visualize
+Create plots to visualize the data.
+
+```{r}
+#Numerical Data
+diabetes_tb |>
+    ggplot(aes(x = BMI)) +
+    geom_density(color = "black", fill = "dark green") +
+    ggtitle("Distribution Plot for Body Mass Index (BMI)") +
+    theme_minimal()
+
+#Categorical Data
+ggplot(data = diabetes_tb |>
+   group_by(GenHlth, Sex, Diabetes) |>
+   summarize(count = n(), .groups = 'drop'), aes(x = Sex, y = count, fill = Diabetes)) +
+   geom_bar(stat = "identity", position = "dodge") +
+  facet_wrap(~ GenHlth) +
+  ggtitle("Diabetes count by General Health and Sex") +
+  scale_fill_viridis_d() +
+  theme_light()
+
+ggplot(data = diabetes_tb |>
+  group_by(Diabetes, Sex, Age) |>
+  summarize(meanBMI = mean(BMI), .groups = 'drop'), aes(x = Sex, y = meanBMI, fill = Diabetes)) +
+  geom_bar(stat = "identity", position = "dodge") +
+  facet_wrap(~ Age) +
+  ggtitle("Mean BMI across Age groups by Sex and Diabetes") +
+  scale_fill_viridis_d() +
+  theme_light()
+
+ggplot(data = diabetes_tb |>
+  group_by(Diabetes, HighChol, HvyAlcoholConsump) |>
+  summarize(count = n(), .groups = 'drop'), aes(x = HvyAlcoholConsump, y = count, fill = Diabetes)) +
+  geom_bar(stat = "identity") +
+  facet_wrap(~ HighChol) +
+  ggtitle("Diabetes count by High Cholesterol and Heavy Alcohol Consumption") +
+  scale_fill_viridis_d() +
+  labs(x = "Heavy Alcohol Consumption: adult men having 14+ drinks/week and women having 7+ drinks/week")+
+  theme_minimal()
+
+ggplot(data = diabetes_tb |>
+  group_by(Diabetes, BadPhysHlthDays) |>
+  summarize(count = n(), .groups = 'drop'), aes(x = BadPhysHlthDays, y = count, fill = Diabetes)) +
+  geom_bar(stat = "identity", position = "dodge") +
+  ggtitle("Diabetes count by Bad Physical Health Days") +
+  labs(x = "Bad Physical Health Days the last 30 Days") +
+  scale_fill_viridis_d() +
+  theme_minimal()
+
+ggplot(data = diabetes_tb |>
+  group_by(Diabetes, Income) |>
+  summarize(count = n(), .groups = 'drop'), aes(x = Income, y = count, fill = Diabetes)) +
+  geom_bar(stat = "identity") +
+  ggtitle("Diabetes count by Income group") +
+  scale_fill_viridis_d() +
+  theme_minimal()
+```
+
+# Review EDA
+
+From the exploratory analysis, we see that there is no missing data, and only one numerical variable, BMI, which seems to follow a normal distribution with a mean of 28.4. From the proportions table, a majority of people who have diabetes have high blood pressure, high cholesterol, are physically active, consume vegetables daily, general health of good or fair, in between ages 55-74, and don't have any bad physical health days. All other variables were not as significantly different proportionally when looking at diabetes.
+
+There are many categorical variables, so several were selected for this analysis including: Sex, Age, General Health, High Cholesterol, Heavy Alcohol Consumption, Physical Health, and Income. From the first contingency table and the corresponding bar plot, we see an increase in diabetes counts as the general health diminishes from excellent to good. However, the amount of people with diabetes decreases as general health decreases from good to poor. Also, males are more likely to have diabetes than females, which can be seen in all the visuals. The second plot and contingency table show that the average BMI is higher for both male and female for people wit diabetes across all age groups. Based on the other visuals, it does not seem that heavy alcohol consumption or bad physical health days contributes to diabetes. When comparing incomes, it does seem that lower income groups are more likely to have diabetes than people that make more than $75,000.
