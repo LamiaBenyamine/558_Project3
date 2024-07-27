@@ -1,6 +1,7 @@
 ---
 title: "ST 558 Project 3: EDA"
 author: "Lamia Benyamine"
+date: "July 29, 2024"
 format: html
 editor: visual
 ---
@@ -12,6 +13,8 @@ editor: visual
 ## EDA purpose
 
 ## Libraries
+Load libraries necessary for this analysis.
+
 ```{r, message = FALSE, warning = FALSE}
 library(readr)
 library(tidyr)
@@ -20,10 +23,9 @@ library(tidyverse)
 library(ggplot2)
 ```
 
-
 # Data
 
-Read in the diabetes data using a relative path, and convert 
+Read in the diabetes data using a relative path, and convert any variables to a factor if needed. 
 
 ```{r}
 diabetes_tb <- read_csv("data/diabetes_binary_health_indicators_BRFSS2015.csv", show_col_types = FALSE) |>
@@ -129,3 +131,5 @@ ggplot(data = diabetes_tb |>
 From the exploratory analysis, we see that there is no missing data, and only one numerical variable, BMI, which seems to follow a normal distribution with a mean of 28.4. From the proportions table, a majority of people who have diabetes have high blood pressure, high cholesterol, are physically active, consume vegetables daily, general health of good or fair, in between ages 55-74, and don't have any bad physical health days. All other variables were not as significantly different proportionally when looking at diabetes.
 
 There are many categorical variables, so several were selected for this analysis including: Sex, Age, General Health, High Cholesterol, Heavy Alcohol Consumption, Physical Health, and Income. From the first contingency table and the corresponding bar plot, we see an increase in diabetes counts as the general health diminishes from excellent to good. However, the amount of people with diabetes decreases as general health decreases from good to poor. Also, males are more likely to have diabetes than females, which can be seen in all the visuals. The second plot and contingency table show that the average BMI is higher for both male and female for people wit diabetes across all age groups. Based on the other visuals, it does not seem that heavy alcohol consumption or bad physical health days contributes to diabetes. When comparing incomes, it does seem that lower income groups are more likely to have diabetes than people that make more than $75,000.
+
+[Click here for the Modeling Page](Modeling.html)
