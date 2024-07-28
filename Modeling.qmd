@@ -8,9 +8,15 @@ editor: visual
 
 # Introduction
 
+This data is based on Behavioral Risk Factor Surveillance System (BRFSS) survey conducted  on over 400,000 Americans by the CDC in 2015. This data set as been cleaned and contains 253,680 responses and has a target variable Diabetes_binary with 2 classes: 0 is for no diabetes and 1 is for prediabetes or diabetes.
+
+The main important risk factors we will be investigating are: High Blood Pressure, High Cholesterol, Sex, Age, General Health score, Income, Physical Activity (physical activity in past 30 days - not including job), Fruits (consume fruit daily), Veggies (consume vegetables daily), Smoker (at least 100 cigarets in your life), Stroke (ever had a stroke), Heart Disease or Attack (coronary heart disease (CHD) or myocardial infarction (MI)), Heavy Alcohol Consumption (adult men having 14+ drinks/week and women having 7+ drinks/week), and Body Mass Index (BMI).
+
 # Models
 
-This analysis will create models for predicting the Diabetes variable using the caret package. We will split the data and create multiple models of each logistic regression, classification tree, and a random forest fit using the training set. Then we will use logLoss as the metric and a 5 fold cross-validation to evaluate and select the best fit from each prediction model. Then we will test the final three models using the testing set.
+This analysis will create models for predicting the Diabetes variable using the caret package. We will split the data and create multiple models of each logistic regression, classification tree, and a random forest fit using the training set. Then we will use logLoss as the metric and a five-fold cross-validation to evaluate and select the best fit from each prediction model. Then we will test the final three models using the testing set.
+
+Five-fold cross validation partitions the data into five non-overlapping partitions. For each one of the partitions, a model is trained on 70% of the data, and evaluated on the remaining 30% of the data. We will end up with five metrics for each test set evaluation and average these to give an estimate of how well our model will perform on future data.
 
 Log loss is a common loss function and is also used as a metric to compare models. Log loss estimates how accurate the prediction probability (p) is to the corresponding actual value (y).
 
@@ -115,7 +121,7 @@ Based on the logloss metric, the first logical regression fit has the lowest log
 
 ## Classification Tree
 
-A classification tree model is...
+A classification tree model is decision tree for binary response variables. The observed data is grouped based on the number of possible combinations of levels of the categorical variables. At each node of the tree, there is a condition involving a variable and a cut-off to divide the observations in two groups. Repeating this process for each variable creates a full tree, then the tree gets pruned to be the optimal model. Cross-validation is used to determine how many nodes the best model tree should have. 
 
 We will fit a classification tree with varying values of the complexity parameter and determine the best model.
 
@@ -133,8 +139,7 @@ Based on the logloss metric and the lowest complexity parameter, the optimal cla
 
 ## Random Forest
 
-A random forest model uses the same idea as bagging and creates multiple trees from bootstrap samples and averages the results. This model is a special case of bagging where m=p. 
-There are 11 classification variables so m = 11
+A random forest model is a collection of decision trees. It uses the same idea as bagging and creates multiple trees based on bootstrap samples from the training data. There is no pruning involved, but each tree is grown until the number of observations in each node is no more than size m. So each individual tree will overfit the data in a different way and when we average the predictions from different trees, the overfitting will be removed. This model is a special case of bagging where m=p. There are 11 classification variables so m = 11
 
 We will fit a a random forest model and determine the best model. 
 

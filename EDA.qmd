@@ -10,7 +10,21 @@ editor: visual
 
 ## Dataset
 
+Diabetes is a chronic disease in which individuals lose the ability to effectively regulate levels of glucose in the blood, and is generally characterized by either the body not making enough insulin or being unable to use the insulin that is made as effectively as needed.
+
+**Maybe a graph with the # of Americans with diabetes over the years cdc
+
+This data is based on Behavioral Risk Factor Surveillance System (BRFSS) survey conducted  on over 400,000 Americans by the CDC in 2015. This data set as been cleaned and contains 253,680 responses and has a target variable Diabetes_binary with 2 classes: 0 is for no diabetes and 1 is for prediabetes or diabetes.
+
+The main important risk factors we will be investigating are: High Blood Pressure, High Cholesterol, Sex, Age, General Health score, Income, Physical Activity (physical activity in past 30 days - not including job), Fruits (consume fruit daily), Veggies (consume vegetables daily), Smoker (at least 100 cigarets in your life), Stroke (ever had a stroke), Heart Disease or Attack (coronary heart disease (CHD) or myocardial infarction (MI)), Heavy Alcohol Consumption (adult men having 14+ drinks/week and women having 7+ drinks/week), and Body Mass Index (BMI).
+
+[Click here for more information on the data.] (https://www.kaggle.com/datasets/alexteboul/diabetes-health-indicators-dataset/data)
+
 ## EDA purpose
+
+• describes the purpose of your EDA and ultimate goal of modeling.
+
+
 
 ## Libraries
 Load libraries necessary for this analysis.
