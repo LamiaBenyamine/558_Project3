@@ -149,17 +149,17 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <section id="introduction" class="level1">
 <h1>Introduction</h1>
-<section id="dataset" class="level2">
-<h2 class="anchored" data-anchor-id="dataset">Dataset</h2>
-<p>Diabetes is a chronic disease in which individuals lose the ability to effectively regulate levels of glucose in the blood, and is generally characterized by either the body not making enough insulin or being unable to use the insulin that is made as effectively as needed.</p>
-<p>**Maybe a graph with the # of Americans with diabetes over the years cdc</p>
+<section id="data-set" class="level2">
+<h2 class="anchored" data-anchor-id="data-set">Data set</h2>
+<p>Diabetes is a chronic disease in which individuals lose the ability to effectively regulate levels of glucose in the blood, and is generally characterized by either the body not making enough insulin or being unable to use the insulin that is made as effectively as needed. About 98 million American adults (more than 1 in 3) have prediabetes. More than 8 in 10 adults with prediabetes don’t know they have it.</p>
+<p><img src="https://archive.cdc.gov/www_cdc_gov/diabetes/library/reports/reportcard/national-state-diabetes-trends_1702491587_html_files/nat-state-diabees-trends_fig-1.jpg" class="img-fluid"></p>
 <p>This data is based on Behavioral Risk Factor Surveillance System (BRFSS) survey conducted on over 400,000 Americans by the CDC in 2015. This data set as been cleaned and contains 253,680 responses and has a target variable Diabetes_binary with 2 classes: 0 is for no diabetes and 1 is for prediabetes or diabetes.</p>
 <p>The main important risk factors we will be investigating are: High Blood Pressure, High Cholesterol, Sex, Age, General Health score, Income, Physical Activity (physical activity in past 30 days - not including job), Fruits (consume fruit daily), Veggies (consume vegetables daily), Smoker (at least 100 cigarets in your life), Stroke (ever had a stroke), Heart Disease or Attack (coronary heart disease (CHD) or myocardial infarction (MI)), Heavy Alcohol Consumption (adult men having 14+ drinks/week and women having 7+ drinks/week), and Body Mass Index (BMI).</p>
-<p>[Click here for more information on the data.] (https://www.kaggle.com/datasets/alexteboul/diabetes-health-indicators-dataset/data)</p>
+<p>[<a href="(https://www.kaggle.com/datasets/alexteboul/diabetes-health-indicators-dataset/data)">Click here for more information on the data.</a>]</p>
 </section>
 <section id="eda-purpose" class="level2">
 <h2 class="anchored" data-anchor-id="eda-purpose">EDA purpose</h2>
-<p>• describes the purpose of your EDA and ultimate goal of modeling.</p>
+<p>The purpose of this Exploratory Data Analysis (EDA) is to gain insight into the diabetes data set by interpreting the variable structures and if there are any missing values. We also investigate the distribution of the data through summaries, contingency tables, and graphs. For numerical data we focus on center and spread measures, and for categorical data we focus on relative frequency through counts and proportions. By understanding the data, we are able to create meaningful prediction models. The ultimate goal for our modeling is to determine the best model based on the log-loss metric in order to apply it and predict the diabetes response from user input.</p>
 </section>
 <section id="libraries" class="level2">
 <h2 class="anchored" data-anchor-id="libraries">Libraries</h2>

@@ -5,6 +5,9 @@
 
 # Libraries
 library(plumber)
+library(readr)
+library(tidyverse)
+library(dplyr)
 library(caret)
 
 # Read in the Diabetes data.
@@ -91,7 +94,7 @@ function(sx = "Female", ag = "55-64", ghth = "very_good", hbp = "No", hch = "No"
 #* @get /info
 function(){
   "Lamia Benyamine"
-  ""
+  "https://lamiabenyamine.github.io/558_Project3/"
 }
 
 #http://localhost:PORT/info
