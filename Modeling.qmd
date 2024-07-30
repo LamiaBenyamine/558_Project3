@@ -172,28 +172,13 @@ logPred <- confusionMatrix(data = test$Diabetes, reference = predict(logRegFit1,
 classPred <- confusionMatrix(data = test$Diabetes, reference = predict(classTreeFit, newdata = test))
 randPred <- confusionMatrix(data = test$Diabetes, reference = predict(randForFit, newdata = test))
 
-logPred <-- mnLogLoss(data = test$Diabetes, reference = predict(logRegFit1, newdata = test))
+#Attempt at using logloss for prediction results
+#logPred <-- mnLogLoss(data = test$Diabetes, reference = predict(logRegFit1, newdata = test))
 
-calcLogLoss<- function(actual, pred)
-{
-  result = -mean(actual * log(pred) + (1 - actual) * log(1 - pred))
-  return(result)
-}
-calcLogLoss(test$Diabetes, predict(logRegFit1, newdata = test, type="prob") )
-
-logPred <- mnLogLoss(predict(logRegFit1, newdata = test, type = "prob"), lev = c("no_diabetes","diabetes"))
-
-logPred <- mnLogLoss(data.frame(obs = test$Diabetes, 
-                                pred =predict(logRegFit1, newdata = test)), 
-                     lev = test$Diabetes)
-
-
-#data.frame(obs = test$Diabetes, pred =predict(logRegFit1, newdata = test)))
-classPred <- predict(classTreeFit, newdata = test)
-randPred <- predict(randForFit, newdata = test)
 
 #Summary table to determine the best model
-fitStats <- data.frame(model = c("Logistic Regression", "Classification Tree", "Random Forest"),
-                      )
-fitStats
+fitStats <- data.frame(logPred$overall, classPred$overall, randPred$overall)
+fitStats[1,]
 ```
+
+Based on the accuracy from using the test set, the logistic regression is the best model for this data.
