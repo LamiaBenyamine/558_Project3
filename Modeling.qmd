@@ -8,7 +8,7 @@ editor: visual
 
 # Introduction
 
-This data is based on Behavioral Risk Factor Surveillance System (BRFSS) survey conducted  on over 400,000 Americans by the CDC in 2015. This data set as been cleaned and contains 253,680 responses and has a target variable Diabetes_binary with 2 classes: 0 is for no diabetes and 1 is for prediabetes or diabetes.
+This data is based on Behavioral Risk Factor Surveillance System (BRFSS) survey conducted  on over 400,000 Americans by the CDC in 2015. This data set as been cleaned and contains 253,680 responses and has a target variable Diabetes_binary with 2 classes: 0 is for no diabetes and 1 is for prediabetes or diabetes. The ultimate goal for our modeling is to determine the best model based on the log-loss metric in order to apply it and predict the diabetes response from user input.
 
 The main important risk factors we will be investigating are: High Blood Pressure, High Cholesterol, Sex, Age, General Health score, Income, Physical Activity (physical activity in past 30 days - not including job), Fruits (consume fruit daily), Veggies (consume vegetables daily), Smoker (at least 100 cigarets in your life), Stroke (ever had a stroke), Heart Disease or Attack (coronary heart disease (CHD) or myocardial infarction (MI)), Heavy Alcohol Consumption (adult men having 14+ drinks/week and women having 7+ drinks/week), and Body Mass Index (BMI).
 

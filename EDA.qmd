@@ -8,25 +8,24 @@ editor: visual
 
 # Introduction
 
-## Dataset
+## Data set
 
-Diabetes is a chronic disease in which individuals lose the ability to effectively regulate levels of glucose in the blood, and is generally characterized by either the body not making enough insulin or being unable to use the insulin that is made as effectively as needed.
+Diabetes is a chronic disease in which individuals lose the ability to effectively regulate levels of glucose in the blood, and is generally characterized by either the body not making enough insulin or being unable to use the insulin that is made as effectively as needed. About 98 million American adults (more than 1 in 3) have prediabetes. More than 8 in 10 adults with prediabetes don't know they have it.
 
-**Maybe a graph with the # of Americans with diabetes over the years cdc
+![](https://archive.cdc.gov/www_cdc_gov/diabetes/library/reports/reportcard/national-state-diabetes-trends_1702491587_html_files/nat-state-diabees-trends_fig-1.jpg)
 
-This data is based on Behavioral Risk Factor Surveillance System (BRFSS) survey conducted  on over 400,000 Americans by the CDC in 2015. This data set as been cleaned and contains 253,680 responses and has a target variable Diabetes_binary with 2 classes: 0 is for no diabetes and 1 is for prediabetes or diabetes.
+This data is based on Behavioral Risk Factor Surveillance System (BRFSS) survey conducted on over 400,000 Americans by the CDC in 2015. This data set as been cleaned and contains 253,680 responses and has a target variable Diabetes_binary with 2 classes: 0 is for no diabetes and 1 is for prediabetes or diabetes.
 
 The main important risk factors we will be investigating are: High Blood Pressure, High Cholesterol, Sex, Age, General Health score, Income, Physical Activity (physical activity in past 30 days - not including job), Fruits (consume fruit daily), Veggies (consume vegetables daily), Smoker (at least 100 cigarets in your life), Stroke (ever had a stroke), Heart Disease or Attack (coronary heart disease (CHD) or myocardial infarction (MI)), Heavy Alcohol Consumption (adult men having 14+ drinks/week and women having 7+ drinks/week), and Body Mass Index (BMI).
 
-[Click here for more information on the data.] (https://www.kaggle.com/datasets/alexteboul/diabetes-health-indicators-dataset/data)
+\[[Click here for more information on the data.]((https://www.kaggle.com/datasets/alexteboul/diabetes-health-indicators-dataset/data))\]
 
 ## EDA purpose
 
-• describes the purpose of your EDA and ultimate goal of modeling.
-
-
+The purpose of this Exploratory Data Analysis (EDA) is to gain insight into the diabetes data set by interpreting the variable structures and if there are any missing values. We also investigate the distribution of the data through summaries, contingency tables, and graphs. For numerical data we focus on center and spread measures, and for categorical data we focus on relative frequency through counts and proportions. By understanding the data, we are able to create meaningful prediction models. The ultimate goal for our modeling is to determine the best model based on the log-loss metric in order to apply it and predict the diabetes response from user input.
 
 ## Libraries
+
 Load libraries necessary for this analysis.
 
 ```{r, message = FALSE, warning = FALSE}
@@ -39,7 +38,7 @@ library(ggplot2)
 
 # Data
 
-Read in the diabetes data using a relative path, and convert any variables to a factor if needed. 
+Read in the diabetes data using a relative path, and convert any variables to a factor if needed.
 
 ```{r}
 diabetes_tb <- read_csv("data/diabetes_binary_health_indicators_BRFSS2015.csv", show_col_types = FALSE) |>
@@ -55,7 +54,8 @@ diabetes_tb <- read_csv("data/diabetes_binary_health_indicators_BRFSS2015.csv", 
 ```
 
 ## Summarize
-Understand the data by checking the structure, any missing values, and the summary with respect to the relationships of variables to Diabetes. 
+
+Understand the data by checking the structure, any missing values, and the summary with respect to the relationships of variables to Diabetes.
 
 ```{r, message = FALSE, warning = FALSE}
 #display a few rows of the data, show the column structures and the class
@@ -83,6 +83,7 @@ diabetes_tb |>
 ```
 
 ## Visualize
+
 Create plots to visualize the data.
 
 ```{r}
@@ -144,6 +145,6 @@ ggplot(data = diabetes_tb |>
 
 From the exploratory analysis, we see that there is no missing data, and only one numerical variable, BMI, which seems to follow a normal distribution with a mean of 28.4. From the proportions table, a majority of people who have diabetes have high blood pressure, high cholesterol, are physically active, consume vegetables daily, general health of good or fair, in between ages 55-74, and don't have any bad physical health days. All other variables were not as significantly different proportionally when looking at diabetes.
 
-There are many categorical variables, so several were selected for this analysis including: Sex, Age, General Health, High Cholesterol, Heavy Alcohol Consumption, Physical Health, and Income. From the first contingency table and the corresponding bar plot, we see an increase in diabetes counts as the general health diminishes from excellent to good. However, the amount of people with diabetes decreases as general health decreases from good to poor. Also, males are more likely to have diabetes than females, which can be seen in all the visuals. The second plot and contingency table show that the average BMI is higher for both male and female for people wit diabetes across all age groups. Based on the other visuals, it does not seem that heavy alcohol consumption or bad physical health days contributes to diabetes. When comparing incomes, it does seem that lower income groups are more likely to have diabetes than people that make more than $75,000.
+There are many categorical variables, so several were selected for this analysis including: Sex, Age, General Health, High Cholesterol, Heavy Alcohol Consumption, Physical Health, and Income. From the first contingency table and the corresponding bar plot, we see an increase in diabetes counts as the general health diminishes from excellent to good. However, the amount of people with diabetes decreases as general health decreases from good to poor. Also, males are more likely to have diabetes than females, which can be seen in all the visuals. The second plot and contingency table show that the average BMI is higher for both male and female for people wit diabetes across all age groups. Based on the other visuals, it does not seem that heavy alcohol consumption or bad physical health days contributes to diabetes. When comparing incomes, it does seem that lower income groups are more likely to have diabetes than people that make more than \$75,000.
 
 [Click here for the Modeling Page](Modeling.html)
